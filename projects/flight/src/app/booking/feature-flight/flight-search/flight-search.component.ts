@@ -29,7 +29,7 @@ export class FlightSearchComponent {
     3: true,
     5: true
   };
-  protected flights$ = this.ticketsFacade.flights$;
+  protected flights = this.ticketsFacade.flights;
 
   protected search(filter: FlightFilter): void {
     /* inject(FlightService)

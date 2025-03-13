@@ -1,8 +1,8 @@
-import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpHeaders, httpResource } from "@angular/common/http";
 import { Injectable, ResourceRef, Signal, inject, resource } from "@angular/core";
 import { rxResource } from "@angular/core/rxjs-interop";
 import { Observable } from "rxjs";
-import { Passenger } from "../model/passenger";
+import { initialPassenger, Passenger } from "../model/passenger";
 
 
 @Injectable({
@@ -59,6 +59,13 @@ export class PassengerService {
         { signal: abortSignal }
       ).then(res => res.json() as Promise<Passenger>)
     });
+  }
+
+  findByIsAsHttpResource(id: Signal<number>): ResourceRef<Passenger> {
+    return httpResource(
+      () => `https://demo.angulararchitects.io/api/passenger?id=${id()}`,
+      { defaultValue: initialPassenger }
+    );
   }
 
   save(passenger: Passenger): Observable<Passenger> {

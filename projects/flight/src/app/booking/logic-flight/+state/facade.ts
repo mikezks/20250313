@@ -6,14 +6,12 @@ import { BookingStore } from "./booking.store";
 
 
 export function injectTicketsFacade() {
-  const bookingStore = inject(BookingStore);
+  const store = inject(BookingStore);
 
   return {
-    flights: bookingStore.flights,
-    search: (filter: FlightFilter) => {
-      bookingStore.setFilter(filter);
-    },
-    update: (flight: Flight) => {},
-    reset: () => bookingStore.setFlights([])
+    flights: store.flightEntities,
+    search: (filter: FlightFilter) => store.setFilter(filter),
+    update: (flight: Flight) => store.setFlight(flight),
+    reset: () => store.resetFlights()
   };
 }
